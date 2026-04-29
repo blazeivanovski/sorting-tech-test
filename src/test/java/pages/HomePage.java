@@ -13,7 +13,7 @@ public class HomePage {
         englishLink = page.locator("a:has-text('english')");
     }
 
-    public void navigate() {
+    public void navigateCraigslist() {
         page.navigate("https://madrid.craigslist.org/");
     }
 
@@ -22,7 +22,7 @@ public class HomePage {
         englishLink.click();
     }
 
-    public void goToHousing() {
+    public void clickHousing() {
         String housingLink = "#hhh a.hhh";
         page.locator(housingLink).click();
     }

@@ -7,6 +7,7 @@ import model.SortOption;
 import pages.HousingPage;
 
 import org.junit.Assert;
+import utils.SortOptionMapper;
 
 import java.util.List;
 
@@ -17,14 +18,14 @@ public class SortingSteps {
     private final HousingPage housingPage = new HousingPage(TestContext.page);
 
     @Then("Default sorting options should be available")
-    public void default_sorting() {
+    public void defaultSorting() {
         TestContext.page.locator(".cl-search-sort-mode.bd-combo-box").click();
         Locator dropdown = TestContext.page.locator(".bd-list-box");
         dropdown.waitFor();
 
-        Assert.assertTrue(dropdown.locator("text=£ → £££").isVisible());
-        Assert.assertTrue(dropdown.locator("text=£££ → £").isVisible());
-        Assert.assertTrue(dropdown.locator("text=newest").isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_ASC.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_DESC.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.NEWEST.getValue()).isVisible());
     }
 
     @When("User performs a search for {string}")
@@ -33,21 +34,21 @@ public class SortingSteps {
     }
 
     @Then("Extended sorting options should be available")
-    public void extended_sorting() {
+    public void extendedSorting() {
         TestContext.page.locator(".cl-search-sort-mode.bd-combo-box").click();
         Locator dropdown = TestContext.page.locator(".bd-list-box");
         dropdown.waitFor();
 
-        Assert.assertTrue(dropdown.locator("text=£ → £££").isVisible());
-        Assert.assertTrue(dropdown.locator("text=£££ → £").isVisible());
-        Assert.assertTrue(dropdown.locator("text=newest").isVisible());
-        Assert.assertTrue(dropdown.locator("text=upcoming").isVisible());
-        Assert.assertTrue(dropdown.locator("text=relevance").isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_ASC.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_DESC.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.NEWEST.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.UPCOMING.getValue()).isVisible());
+        Assert.assertTrue(dropdown.locator("text=" + SortOption.RELEVANCE.getValue()).isVisible());
     }
 
-    @When("User sorts results by {word}")
-    public void sort_by(String optionText) {
-        SortOption option = SortOption.valueOf(optionText);
+    @When("User sorts results by {string}")
+    public void sortBy(String optionText) {
+        SortOption option = SortOptionMapper.fromText(optionText);
         housingPage.selectSortOption(option);
         housingPage.waitForPricesToLoad();
     }
