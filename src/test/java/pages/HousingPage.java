@@ -26,19 +26,29 @@ public class HousingPage {
         search.press("Enter");
     }
 
-    public void openSortDropdown() {
-        String sortDropdown = ".cl-search-sort-mode.bd-combo-box";
-        page.locator(sortDropdown).click();
-        page.locator(".bd-list-box").waitFor();
+    public void clickSortDropdown() {
+        page.locator(".cl-search-sort-mode.bd-combo-box").click();
+    }
+
+    public Locator openSortDropdown() {
+        clickSortDropdown();
+        Locator dropdown = page.locator(".bd-list-box");
+        dropdown.waitFor();
+        return dropdown;
     }
 
     public void selectSortOption(SortOption option) {
-        openSortDropdown();
+        clickSortDropdown();
         String dropdownOptions = ".bd-list-box .label";
         Locator item = page.locator(dropdownOptions + ":has-text('" + option.getValue() + "')");
+
         item.waitFor(new Locator.WaitForOptions()
                 .setState(WaitForSelectorState.VISIBLE));
         item.click();
+    }
+
+    public boolean isSortOptionVisible(Locator dropdown, SortOption option) {
+        return dropdown.locator("text=" + option.getValue()).isVisible();
     }
 
     public void waitForPricesToLoad() {
@@ -60,7 +70,7 @@ public class HousingPage {
         }
 
         String cleaned = priceText
-                .replaceAll("[^0-9]", ""); // removes €, dots, spaces
+                .replaceAll("[^0-9]", "");
 
         if (cleaned.isEmpty()) {
             return null;

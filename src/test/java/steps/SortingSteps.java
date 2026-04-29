@@ -19,13 +19,10 @@ public class SortingSteps {
 
     @Then("Default sorting options should be available")
     public void defaultSorting() {
-        TestContext.page.locator(".cl-search-sort-mode.bd-combo-box").click();
-        Locator dropdown = TestContext.page.locator(".bd-list-box");
-        dropdown.waitFor();
-
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_ASC.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_DESC.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.NEWEST.getValue()).isVisible());
+        Locator dropdown = housingPage.openSortDropdown();
+        Assert.assertTrue(SortOption.PRICE_ASC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_ASC));
+        Assert.assertTrue(SortOption.PRICE_DESC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_DESC));
+        Assert.assertTrue(SortOption.NEWEST.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.NEWEST));
     }
 
     @When("User performs a search for {string}")
@@ -35,15 +32,12 @@ public class SortingSteps {
 
     @Then("Extended sorting options should be available")
     public void extendedSorting() {
-        TestContext.page.locator(".cl-search-sort-mode.bd-combo-box").click();
-        Locator dropdown = TestContext.page.locator(".bd-list-box");
-        dropdown.waitFor();
-
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_ASC.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.PRICE_DESC.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.NEWEST.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.UPCOMING.getValue()).isVisible());
-        Assert.assertTrue(dropdown.locator("text=" + SortOption.RELEVANCE.getValue()).isVisible());
+        Locator dropdown = housingPage.openSortDropdown();
+        Assert.assertTrue(SortOption.PRICE_ASC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_ASC));
+        Assert.assertTrue(SortOption.PRICE_DESC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_DESC));
+        Assert.assertTrue(SortOption.NEWEST.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.NEWEST));
+        Assert.assertTrue(SortOption.UPCOMING.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.UPCOMING));
+        Assert.assertTrue(SortOption.RELEVANCE.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.RELEVANCE));
     }
 
     @When("User sorts results by {string}")
