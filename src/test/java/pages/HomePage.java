@@ -13,7 +13,7 @@ public class HomePage {
         englishLink = page.locator("a:has-text('english')");
     }
 
-    public void open() {
+    public void navigate() {
         page.navigate("https://madrid.craigslist.org/");
     }
 

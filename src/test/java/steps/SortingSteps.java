@@ -52,7 +52,7 @@ public class SortingSteps {
         housingPage.waitForPricesToLoad();
     }
 
-    @Then("Results should be sorted by price ascending")
+    @Then("Results should be sorted by price in ascending order")
     public void verifyAscending() {
         List<Integer> prices = housingPage.getPrices();
         attachText("Prices - ASC check", prices.toString());
@@ -63,7 +63,7 @@ public class SortingSteps {
         );
     }
 
-    @Then("Results should be sorted by price descending")
+    @Then("Results should be sorted by price in descending order")
     public void verifyDescending() {
         List<Integer> prices = housingPage.getPrices();
         attachText("Prices - DESC check", prices.toString());

@@ -10,10 +10,10 @@ public class NavigationSteps {
 
     private HomePage homePage;
 
-    @Given("User opens Craigslist Madrid")
-    public void open_site() {
+    @Given("User visits the Craigslist Madrid site")
+    public void navigate_site() {
         homePage = new HomePage(TestContext.page);
-        homePage.open();
+        homePage.navigate();
     }
 
     @When("User selects English language")
