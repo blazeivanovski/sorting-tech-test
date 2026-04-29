@@ -47,8 +47,14 @@ public class HousingPage {
         item.click();
     }
 
-    public boolean isSortOptionVisible(Locator dropdown, SortOption option) {
-        return dropdown.locator("text=" + option.getValue()).isVisible();
+    public void assertSortOptionsVisible(List<SortOption> options) {
+        Locator dropdown = openSortDropdown();
+
+        for (SortOption option : options) {
+            if (!dropdown.locator("text=" + option.getValue()).isVisible()) {
+                throw new AssertionError("Missing " + option.getValue() + " sorting option!");
+            }
+        }
     }
 
     public void waitForPricesToLoad() {

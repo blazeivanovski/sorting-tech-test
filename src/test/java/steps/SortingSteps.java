@@ -1,6 +1,5 @@
 package steps;
 
-import com.microsoft.playwright.Locator;
 import core.TestContext;
 import io.cucumber.java.en.*;
 import model.SortOption;
@@ -19,10 +18,11 @@ public class SortingSteps {
 
     @Then("Default sorting options should be available")
     public void defaultSorting() {
-        Locator dropdown = housingPage.openSortDropdown();
-        Assert.assertTrue(SortOption.PRICE_ASC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_ASC));
-        Assert.assertTrue(SortOption.PRICE_DESC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_DESC));
-        Assert.assertTrue(SortOption.NEWEST.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.NEWEST));
+        housingPage.assertSortOptionsVisible(List.of(
+                SortOption.PRICE_ASC,
+                SortOption.PRICE_DESC,
+                SortOption.NEWEST
+        ));
     }
 
     @When("User performs a search for {string}")
@@ -32,12 +32,13 @@ public class SortingSteps {
 
     @Then("Extended sorting options should be available")
     public void extendedSorting() {
-        Locator dropdown = housingPage.openSortDropdown();
-        Assert.assertTrue(SortOption.PRICE_ASC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_ASC));
-        Assert.assertTrue(SortOption.PRICE_DESC.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.PRICE_DESC));
-        Assert.assertTrue(SortOption.NEWEST.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.NEWEST));
-        Assert.assertTrue(SortOption.UPCOMING.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.UPCOMING));
-        Assert.assertTrue(SortOption.RELEVANCE.getValue() + " sorting option is not available!", housingPage.isSortOptionVisible(dropdown, SortOption.RELEVANCE));
+        housingPage.assertSortOptionsVisible(List.of(
+                SortOption.PRICE_ASC,
+                SortOption.PRICE_DESC,
+                SortOption.NEWEST,
+                SortOption.UPCOMING,
+                SortOption.RELEVANCE
+        ));
     }
 
     @When("User sorts results by {string}")
